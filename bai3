@@ -1,0 +1,49 @@
+from ._anvil_designer import Form1Template
+from anvil import *
+
+
+class Form1(Form1Template):
+  def __init__(self, **properties):
+    # Set Form properties and Data Bindings.
+    self.init_components(**properties)
+
+    # Any code you write here will run before the form opens.
+    def button_1_click(self, **event_args):
+        # Sắp xếp dữ liệu thành dãy tăng dần
+        sorted_data = sorted(app_tables.my_table.search(), key=lambda row: row['column_name'])
+        self.table.items = sorted_data
+
+    def button_2_click(self, **event_args):
+        # Sắp xếp dữ liệu thành dãy giảm dần
+        sorted_data = sorted(app_tables.my_table.search(), key=lambda row: row['column_name'], reverse=True)
+        self.table.items = sorted_data
+
+    def add_data_button_click(self, **event_args):
+        # Gọi hàm để nhập dữ liệu từ người dùng
+        new_data = self.input_data()
+        if new_data:
+            # Thêm dữ liệu vào bảng
+            app_tables.my_table.add_row(column_name=new_data)
+            # Cập nhật lại Table Component
+            self.table.items = app_tables.my_table.search()
+
+    def input_data(self):
+        # Hiển thị hộp thoại nhập dữ liệu
+        data = input_dialog("Nhập dữ liệu:", title="Thêm dữ liệu")
+        return data if data else None
+
+  def button_3_click(self, **event_args):
+    """This method is called when the button is clicked"""
+     new_data = self.input_data()
+        if new_data:
+            # Thêm dữ liệu vào bảng
+            app_tables.my_table.add_row(column_name=new_data)
+            # Cập nhật lại Table Component
+            self.table.items = app_tables.my_table.search()
+    pass
+
+  def text_box_1_pressed_enter(self, **event_args):
+    """This method is called when the user presses Enter in this text box"""
+     data = input_dialog("Nhập dữ liệu:", title="Thêm dữ liệu")
+        return data if data else None
+    pass
