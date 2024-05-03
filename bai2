@@ -1,0 +1,27 @@
+#include <stdio.h>
+#include <math.h>
+
+int kt(int num) {
+    int squareRoot = sqrt(num);
+    return (squareRoot * squareRoot == num);
+}
+
+void demSoChinhPhuong(int n) {
+    printf("Cac so chinh phuong nho hon %d la:\n", n);
+    int count = 0;
+    for (int i = n - 1; i > 0; i--) {
+        if (kt(i)) {
+            printf("%d ", i);
+            count++;
+        }
+    }
+    printf("\nTong so chinh phuong: %d\n", count);
+}
+
+int main() {
+    int n;
+    printf("Nhap so nguyen duong n: ");
+    scanf("%d", &n);
+    demSoChinhPhuong(n);
+    return 0;
+}
